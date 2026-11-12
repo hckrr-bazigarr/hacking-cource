@@ -1,121 +1,87 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
-const path = require('path');
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const { Resend } = require('resend');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-
 app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('🔥 MongoDB Connected Successfully!'))
-    .catch((err) => console.error('Database Connection Error:', err));
+const MONGO_URI = process.env.MONGO_URI;
+mongoose.connect(MONGO_URI)
+    .then(() => console.log('MongoDB Connected 🚀'))
+    .catch(err => console.log('DB Error:', err));
 
-// Nodemailer setup for sending official-style OTP
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
+// Resend Initialization
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// User Schema
+// User Schema for OTP Auth
 const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    age: { type: Number, required: true },
-    password: { type: String, required: true },
-    otp: { type: String },
-    isVerified: { type: Boolean, default: false },
-    createdAt: { type: Date, default: Date.now }
+    otp: String,
+    otpExpires: Date,
+    verified: { type: Boolean, default: false }
 });
-
 const User = mongoose.model('User', userSchema);
 
-// 1. Sign Up API: Save temp data & send Instagram/FB style OTP
-app.post('/api/signup', async (req, res) => {
+// Send OTP Route
+app.post('/api/send-otp', async (req, res) => {
     try {
-        const { name, email, age, password } = req.body;
-        
-        let user = await User.findOne({ email });
-        if (user && user.isVerified) {
-            return res.status(400).json({ success: false, message: "Email already registered! Please login." });
-        }
+        const { email } = req.body;
+        if (!email) return res.status(400).json({ success: false, message: 'Email is required' });
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
 
-        if (!user) {
-            user = new User({ name, email, age, password, otp, isVerified: false });
-        } else {
-            user.otp = otp;
-            user.name = name;
-            user.age = age;
-            user.password = password;
-        }
-        await user.save();
+        await User.findOneAndUpdate(
+            { email },
+            { otp, otpExpires, verified: false },
+            { upsert: true, new: true }
+        );
 
-        // Official Branded Email Format (Instagram / FB Style)
-        await transporter.sendMail({
-            from: '"BaziGarr Security 🛡️" <' + process.env.EMAIL_USER + '>',
-            to: email,
-            subject: 'CyberSec Academy - Verification Code',
-            text: `Hi ${name},\n\nYour verification code is: ${otp}\n\nWelcome to CyberSec Academy! Enter this code to verify your account. Valid for 10 minutes.\n\nRegards,\nBaziGarr`
+        await resend.emails.send({
+            from: 'CyberSec Academy <onboarding@resend.dev>',
+            to: [email],
+            subject: 'Your Verification OTP - CyberSec Academy',
+            html: `<div style="font-family: Arial, sans-serif; padding: 20px; background: #0b0f19; color: #fff; border-radius: 8px;">
+                <h2 style="color: #ff4d4d;">CyberSec Academy Verification</h2>
+                <p>Your OTP code is:</p>
+                <h1 style="background: #1a233a; padding: 10px 20px; display: inline-block; letter-spacing: 5px; color: #00ffcc;">${otp}</h1>
+                <p>This code expires in 10 minutes.</p>
+            </div>`
         });
 
-        res.status(200).json({ success: true, message: "OTP sent to your email successfully!" });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: "Failed to send OTP. Check email settings." });
+        res.json({ success: true, message: 'OTP sent successfully!' });
+    } catch (error) {
+        console.error('OTP Send Error:', error);
+        res.status(500).json({ success: false, message: 'Failed to send OTP. Check email settings.' });
     }
 });
 
-// 2. Verify OTP API
+// Verify OTP Route
 app.post('/api/verify-otp', async (req, res) => {
     try {
         const { email, otp } = req.body;
         const user = await User.findOne({ email });
 
-        if (!user || user.otp !== otp) {
-            return res.status(400).json({ success: false, message: "Invalid OTP! Try again." });
+        if (!user || user.otp !== otp || user.otpExpires < new Date()) {
+            return res.status(400).json({ success: false, message: 'Invalid or expired OTP' });
         }
 
-        user.isVerified = true;
+        user.verified = true;
         user.otp = undefined;
+        user.otpExpires = undefined;
         await user.save();
 
-        res.json({ success: true, message: "Account verified successfully! You can now login." });
-    } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
+        res.json({ success: true, message: 'Account verified successfully!' });
+    } catch (error) {
+        console.error('Verify Error:', error);
+        res.status(500).json({ success: false, message: 'Server error during verification' });
     }
 });
 
-// 3. Login API
-app.post('/api/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email, password });
-
-        if (!user) {
-            return res.status(400).json({ success: false, message: "Invalid email or password!" });
-        }
-        if (!user.isVerified) {
-            return res.status(400).json({ success: false, message: "Please verify your email with OTP first!" });
-        }
-
-        res.json({ success: true, message: "Login successful!", user: { name: user.name, email: user.email } });
-    } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
-    }
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
-
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'dashboard.html')));
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
