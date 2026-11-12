@@ -3,177 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Neon Circular Login</title>
-
+    <title>CyberSec Academy - Login & Signup</title>
     <link rel="stylesheet" href="code-with-bazigarr.css">
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-    
 </head>
-
 <body>
 
-    <!-- Animated Background -->
-    <div class="background">
-        <div class="wave wave-one"></div>
-        <div class="wave wave-two"></div>
+    <!-- Login Container -->
+    <div class="login-container" style="max-width: 400px; margin: 80px auto; padding: 30px; background: rgba(20, 20, 30, 0.9); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-shadow: 0 0 20px rgba(255,0,128,0.3);">
+        <h2 style="text-align: center; margin-bottom: 20px;">Login</h2>
+        
+        <form id="loginForm">
+            <div style="margin-bottom: 15px;">
+                <input type="email" id="login-email" placeholder="Email Address" required style="width: 100%; padding: 12px; background: #111; border: 1px solid #444; color: #fff; border-radius: 8px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <input type="password" id="login-password" placeholder="Password" required style="width: 100%; padding: 12px; background: #111; border: 1px solid #444; color: #fff; border-radius: 8px;">
+            </div>
+            <button type="submit" style="width: 100%; padding: 12px; background: linear-gradient(90deg, #ff416c, #ff4b2b); border: none; color: #fff; font-weight: bold; border-radius: 8px; cursor: pointer;">Login →</button>
+        </form>
 
-        <div class="glow glow-one"></div>
-        <div class="glow glow-two"></div>
+        <p style="text-align: center; margin-top: 20px; font-size: 14px;">
+            Don't have an account? <a href="#" id="openSignup" style="color: #ff416c; text-decoration: none; font-weight: bold;">Sign up</a>
+        </p>
     </div>
 
+    <!-- Sign Up Modal -->
+    <div id="signupModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:1000; justify-content:center; align-items:center;">
+        <div style="background:#1a1a2e; padding:30px; border-radius:15px; width:90%; max-width:400px; color:#fff; border: 1px solid rgba(255,255,255,0.2);">
+            <h2 style="margin-bottom: 15px; text-align: center;">Create Account</h2>
+            <form id="signupForm">
+                <input type="text" id="su-name" placeholder="Full Name" required style="width:100%; padding:12px; margin:8px 0; background:#111; border:1px solid #444; color:#fff; border-radius:8px;">
+                <input type="email" id="su-email" placeholder="Email Address" required style="width:100%; padding:12px; margin:8px 0; background:#111; border:1px solid #444; color:#fff; border-radius:8px;">
+                <input type="number" id="su-age" placeholder="Age" required style="width:100%; padding:12px; margin:8px 0; background:#111; border:1px solid #444; color:#fff; border-radius:8px;">
+                <input type="password" id="su-password" placeholder="Password" required style="width:100%; padding:12px; margin:8px 0; background:#111; border:1px solid #444; color:#fff; border-radius:8px;">
+                
+                <button type="submit" style="width:100%; padding:12px; background:linear-gradient(90deg, #ff416c, #ff4b2b); border:none; color:#fff; font-weight:bold; border-radius:8px; margin-top:10px; cursor:pointer;">Send OTP</button>
+            </form>
+            <button id="closeSignup" style="width:100%; padding:10px; background:transparent; border:1px solid #555; color:#aaa; margin-top:10px; border-radius:8px; cursor:pointer;">Cancel</button>
+        </div>
+    </div>
 
-    <!-- Login -->
-    <main class="login-wrapper">
-
-        <section class="login-card">
-
-            <div class="card-content">
-
-                <div class="heading">
-                    <h1>Login</h1>
-                    <span>Please sign in to continue</span>
-                </div>
-
-
-                <form onsubmit="handleLogin(event)">
-
-                    <!-- Username -->
-                    <div class="input-group">
-
-                        <span class="input-icon">♙</span>
-
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            autocomplete="username"
-                        >
-
-                    </div>
-
-
-                    <!-- Password -->
-                    <div class="input-group">
-
-                        <span class="input-icon">♙</span>
-
-                        <input
-                            id="password"
-                            type="password"
-                            placeholder="Password"
-                            autocomplete="current-password"
-                        >
-
-                        <button
-                            type="button"
-                            class="eye"
-                            onclick="togglePassword()"
-                        >
-                            ◉
-                        </button>
-
-                    </div>
-
-
-                    <!-- Options -->
-                    <div class="options">
-
-                        <label class="remember">
-
-                            <input type="checkbox">
-
-                            <span class="checkbox"></span>
-
-                            <span>Remember me</span>
-
-                        </label>
-
-                        <a href="#">Forgot password?</a>
-
-                    </div>
-
-
-                    <!-- Login -->
-                    <button class="login-btn" type="submit">
-
-                        <span>Login</span>
-
-                        <strong>→</strong>
-
-                    </button>
-
-                </form>
-
-
-                <!-- Divider -->
-                <div class="divider">
-
-                    <span></span>
-
-                    <p>or continue with</p>
-
-                    <span></span>
-
-                </div>
-
-
-                <!-- Social -->
-                <div class="social">
-
-                    <button>G</button>
-                    <button>f</button>
-                    <button></button>
-
-                </div>
-
-
-                <!-- Signup -->
-                <p class="signup">
-                    Don't have an account?
-                    <a href="#">Sign up</a>
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
-
+    <!-- OTP Verification Modal -->
+    <div id="otpModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:1001; justify-content:center; align-items:center;">
+        <div style="background:#1a1a2e; padding:30px; border-radius:15px; width:90%; max-width:400px; color:#fff; border: 1px solid rgba(255,255,255,0.2); text-align: center;">
+            <h2>Enter OTP</h2>
+            <p style="color:#aaa; font-size:13px; margin-bottom:15px;">Check your email for code from BaziGarr Security.</p>
+            <form id="otpForm">
+                <input type="text" id="otp-input" placeholder="Enter OTP" required style="width:100%; padding:12px; margin:8px 0; background:#111; border:1px solid #444; color:#fff; border-radius:8px; text-align:center; font-size:18px; letter-spacing: 3px;">
+                <button type="submit" style="width:100%; padding:12px; background:linear-gradient(90deg, #00b09b, #96c93d); border:none; color:#fff; font-weight:bold; border-radius:8px; margin-top:10px; cursor:pointer;">Verify & Complete</button>
+            </form>
+        </div>
+    </div>
 
     <script>
+        let registeredEmail = '';
+        const signupModal = document.getElementById('signupModal');
+        const otpModal = document.getElementById('otpModal');
 
-        function togglePassword() {
+        document.getElementById('openSignup').addEventListener('click', (e) => {
+            e.preventDefault();
+            signupModal.style.display = 'flex';
+        });
 
-            const password =
-                document.getElementById("password");
+        document.getElementById('closeSignup').addEventListener('click', () => {
+            signupModal.style.display = 'none';
+        });
 
-            const eye =
-                document.querySelector(".eye");
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('su-name').value;
+            registeredEmail = document.getElementById('su-email').value;
+            const age = document.getElementById('su-age').value;
+            const password = document.getElementById('su-password').value;
 
-            if (password.type === "password") {
-
-                password.type = "text";
-                eye.textContent = "◉";
-
-            } else {
-
-                password.type = "password";
-                eye.textContent = "◉";
-
+            const res = await fetch('/api/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email: registeredEmail, age, password })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if (data.success) {
+                signupModal.style.display = 'none';
+                otpModal.style.display = 'flex';
             }
+        });
 
-        }
+        document.getElementById('otpForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const otp = document.getElementById('otp-input').value;
 
-        function handleLogin(event) {
-            event.preventDefault();
-            window.location.href = 'dashboard.html';
-        }
+            const res = await fetch('/api/verify-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: registeredEmail, otp })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if (data.success) {
+                otpModal.style.display = 'none';
+                window.location.reload();
+            }
+        });
 
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if (data.success) {
+                localStorage.setItem('user', JSON.stringify(data.user));
+                window.location.href = '/dashboard';
+            }
+        });
     </script>
-
 </body>
 </html>
