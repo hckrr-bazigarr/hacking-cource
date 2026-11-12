@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Neon Circular Login</title>
+
+    <link rel="stylesheet" href="code-with-nazia.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+    
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="wave wave-one"></div>
+        <div class="wave wave-two"></div>
+
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+    </div>
+
+
+    <!-- Login -->
+    <main class="login-wrapper">
+
+        <section class="login-card">
+
+            <div class="card-content">
+
+                <div class="heading">
+                    <h1>Login</h1>
+                    <span>Please sign in to continue</span>
+                </div>
+
+
+                <form onsubmit="handleLogin(event)">
+
+                    <!-- Username -->
+                    <div class="input-group">
+
+                        <span class="input-icon">♙</span>
+
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            autocomplete="username"
+                        >
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="input-group">
+
+                        <span class="input-icon">♙</span>
+
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Password"
+                            autocomplete="current-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="eye"
+                            onclick="togglePassword()"
+                        >
+                            ◉
+                        </button>
+
+                    </div>
+
+
+                    <!-- Options -->
+                    <div class="options">
+
+                        <label class="remember">
+
+                            <input type="checkbox">
+
+                            <span class="checkbox"></span>
+
+                            <span>Remember me</span>
+
+                        </label>
+
+                        <a href="#">Forgot password?</a>
+
+                    </div>
+
+
+                    <!-- Login -->
+                    <button class="login-btn" type="submit">
+
+                        <span>Login</span>
+
+                        <strong>→</strong>
+
+                    </button>
+
+                </form>
+
+
+                <!-- Divider -->
+                <div class="divider">
+
+                    <span></span>
+
+                    <p>or continue with</p>
+
+                    <span></span>
+
+                </div>
+
+
+                <!-- Social -->
+                <div class="social">
+
+                    <button>G</button>
+                    <button>f</button>
+                    <button></button>
+
+                </div>
+
+
+                <!-- Signup -->
+                <p class="signup">
+                    Don't have an account?
+                    <a href="#">Sign up</a>
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const eye =
+                document.querySelector(".eye");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                eye.textContent = "◉";
+
+            } else {
+
+                password.type = "password";
+                eye.textContent = "◉";
+
+            }
+
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            window.location.href = 'dashboard.html';
+        }
+
+    </script>
+
+</body>
+</html>
