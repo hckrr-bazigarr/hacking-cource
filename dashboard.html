@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Sec Academy - Dashboard</title>
+    <title>CyberSec Academy - Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -18,6 +18,9 @@
             color: white;
             min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         /* Header / Navbar */
@@ -44,29 +47,88 @@
         .user-profile {
             font-size: 14px;
             color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-link {
+            color: #ff426f;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            margin-left: 10px;
         }
 
         /* Main Container */
         .container {
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        /* Welcome Banner & Stats */
+        .welcome-banner {
+            background: radial-gradient(circle at 10% 20%, rgba(209, 44, 255, 0.15), rgba(54, 92, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .welcome-text h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .welcome-text p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .stats-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 15px 20px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 20px;
+            color: #ef65ff;
+            margin-bottom: 2px;
+        }
+
+        .stat-card span {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .catalog-title {
-            text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
-        .catalog-title h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
+        .catalog-title h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
         }
 
         .catalog-title p {
             color: rgba(255, 255, 255, 0.5);
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Course Grid */
@@ -158,12 +220,37 @@
             transform: translateY(-2px);
         }
 
+        /* Footer */
+        footer {
+            background: rgba(2, 2, 4, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        footer a {
+            color: #ef65ff;
+            text-decoration: none;
+        }
+
         @media (max-width: 768px) {
             header {
                 padding: 15px 20px;
             }
-            .catalog-title h1 {
-                font-size: 28px;
+            .welcome-banner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .stats-group {
+                width: 100%;
+                justify-content: space-between;
             }
         }
     </style>
@@ -173,14 +260,35 @@
     <!-- Header -->
     <header>
         <h2>CyberSec Academy</h2>
-        <div class="user-profile">Welcome, Bini Yamin 🛡️</div>
+        <div class="user-profile">
+            <span>🛡️ Welcome, Hacker</span>
+            <a href="index.html" class="logout-link">Logout</a>
+        </div>
     </header>
 
     <!-- Content -->
     <main class="container">
+        <!-- Welcome Banner & Stats -->
+        <div class="welcome-banner">
+            <div class="welcome-text">
+                <h1>Offensive Security Command Center</h1>
+                <p>Master cutting-edge cybersecurity, exploit frameworks, and defensive engineering.</p>
+            </div>
+            <div class="stats-group">
+                <div class="stat-card">
+                    <h3>05</h3>
+                    <span>Total Courses</span>
+                </div>
+                <div class="stat-card">
+                    <h3>100%</h3>
+                    <span>Practical Lab</span>
+                </div>
+            </div>
+        </div>
+
         <div class="catalog-title">
-            <h1>Hacking & Security Courses Catalog</h1>
-            <p>Master advanced offensive security, penetration testing, and ethical hacking.</p>
+            <h2>Available Masterclass Courses</h2>
+            <p>Select a course below to proceed with secure UPI payment.</p>
         </div>
 
         <div class="course-grid">
@@ -252,6 +360,12 @@
 
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CyberSec Academy. All rights reserved.</p>
+        <p>Support / Admin Contact: <a href="mailto:csrb4zzigar@gmail.com">csrb4zzigar@gmail.com</a></p>
+    </footer>
 
 </body>
 </html>
