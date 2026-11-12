@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Sec Academy - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Manrope", sans-serif;
+            background: #020204;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(2, 2, 4, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        header h2 {
+            font-size: 22px;
+            background: linear-gradient(90deg, #ff426f, #d12cff, #365cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-profile {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .catalog-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .catalog-title h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .catalog-title p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(210, 44, 255, 0.5);
+            box-shadow: 0 15px 35px rgba(150, 40, 255, 0.2);
+        }
+
+        .course-img-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .course-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s ease;
+        }
+
+        .course-card:hover .course-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .course-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+        }
+
+        .course-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .course-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ef65ff;
+        }
+
+        .course-details {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        .buy-btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #ff426f, #d12cff, #365cff);
+            color: white;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s ease;
+            box-shadow: 0 5px 20px rgba(150, 40, 255, 0.3);
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .catalog-title h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h2>CyberSec Academy</h2>
+        <div class="user-profile">Welcome, Bini Yamin 🛡️</div>
+    </header>
+
+    <!-- Content -->
+    <main class="container">
+        <div class="catalog-title">
+            <h1>Hacking & Security Courses Catalog</h1>
+            <p>Master advanced offensive security, penetration testing, and ethical hacking.</p>
+        </div>
+
+        <div class="course-grid">
+
+            <!-- Course 1 -->
+            <div class="course-card">
+                <div class="course-img-wrapper">
+                    <img src="image1.png" alt="Web Hacking & Bug Bounty Masterclass">
+                </div>
+                <div class="course-content">
+                    <div class="course-title">Web Hacking & Bug Bounty Masterclass</div>
+                    <div class="course-price">₹999</div>
+                    <div class="course-details">OWASP Top 10, SQL Injection, XSS, API security, aur real-world bug hunting methodology.</div>
+                    <a href="upi://pay?pa=bazigarr@ptyes&pn=CyberSec%20Academy&am=999&cu=INR&tn=Web%20Hacking%20Course" class="buy-btn">Pay ₹999 via UPI App</a>
+                </div>
+            </div>
+
+            <!-- Course 2 -->
+            <div class="course-card">
+                <div class="course-img-wrapper">
+                    <img src="image2.png" alt="Kali Linux & Termux Zero to Hero">
+                </div>
+                <div class="course-content">
+                    <div class="course-title">Kali Linux & Termux Zero to Hero</div>
+                    <div class="course-price">₹499</div>
+                    <div class="course-details">Command-line mastery, environment setup, networking tools, and mobile-based hacking using Termux.</div>
+                    <a href="upi://pay?pa=bazigarr@ptyes&pn=CyberSec%20Academy&am=499&cu=INR&tn=Kali%20Linux%20Termux%20Course" class="buy-btn">Pay ₹499 via UPI App</a>
+                </div>
+            </div>
+
+            <!-- Course 3 -->
+            <div class="course-card">
+                <div class="course-img-wrapper">
+                    <img src="image3.png" alt="Advanced OSINT & Recon Tactics">
+                </div>
+                <div class="course-content">
+                    <div class="course-title">Advanced OSINT & Recon Tactics</div>
+                    <div class="course-price">₹299</div>
+                    <div class="course-details">Digital footprinting, social engineering intelligence, metadata analysis, and target profiling.</div>
+                    <a href="upi://pay?pa=bazigarr@ptyes&pn=CyberSec%20Academy&am=299&cu=INR&tn=OSINT%20Recon%20Course" class="buy-btn">Pay ₹299 via UPI App</a>
+                </div>
+            </div>
+
+            <!-- Course 4 -->
+            <div class="course-card">
+                <div class="course-img-wrapper">
+                    <img src="image4.png" alt="Android App Penetration Testing">
+                </div>
+                <div class="course-content">
+                    <div class="course-title">Android App Penetration Testing</div>
+                    <div class="course-price">₹599</div>
+                    <div class="course-details">APK decompiling, static/dynamic analysis, burp suite proxy setup for mobile, and vulnerability patching.</div>
+                    <a href="upi://pay?pa=bazigarr@ptyes&pn=CyberSec%20Academy&am=599&cu=INR&tn=Android%20Pentest%20Course" class="buy-btn">Pay ₹599 via UPI App</a>
+                </div>
+            </div>
+
+            <!-- Course 5 -->
+            <div class="course-card">
+                <div class="course-img-wrapper">
+                    <img src="image5.png" alt="Malware Analysis & Reverse Engineering">
+                </div>
+                <div class="course-content">
+                    <div class="course-title">Malware Analysis & Reverse Engineering</div>
+                    <div class="course-price">₹599</div>
+                    <div class="course-details">Dissecting payloads, sandbox testing, assembly basics, and behavioral analysis.</div>
+                    <a href="upi://pay?pa=bazigarr@ptyes&pn=CyberSec%20Academy&am=599&cu=INR&tn=Malware%20Analysis%20Course" class="buy-btn">Pay ₹599 via UPI App</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
